@@ -1,0 +1,22 @@
+<li>
+  <button
+    hx-post="/notes/{{ n.id }}/toggle"
+    hx-target="#notes"
+    hx-swap="outerHTML"
+  >
+    {% if n.done %}✅{% else %}⬜{% endif %}
+  </button>
+
+  <span style="{% if n.done %}text-decoration:line-through;opacity:.6;{% endif %}">
+    {{ n.title }}
+  </span>
+
+  <button
+    hx-delete="/notes/{{ n.id }}"
+    hx-target="#notes"
+    hx-swap="outerHTML"
+    style="margin-left:8px;"
+  >
+    削除
+  </button>
+</li>

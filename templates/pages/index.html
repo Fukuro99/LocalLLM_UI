@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Notes</h1>
+
+<form
+  hx-post="/notes"
+  hx-target="#notes"
+  hx-swap="outerHTML"
+>
+  <input name="title" placeholder="メモ..." required />
+  <button type="submit">追加</button>
+</form>
+
+<div id="notes">
+  {% include "partials/notes_list.html" %}
+</div>
+{% endblock %}
