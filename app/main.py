@@ -6,6 +6,7 @@ from sqlmodel import Session
 
 from .crud import create_note, delete_note, list_notes, toggle_note
 from .db import get_session, init_db
+from .openai_service import generate_note_suggestion
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -21,7 +22,8 @@ def on_startup() -> None:
 def index(request: Request, session: Session = Depends(get_session)) -> HTMLResponse:
     notes = list_notes(session)
     return templates.TemplateResponse(
-        "pages/index.html", {"request": request, "notes": notes}
+        "pages/index.html",
+        {"request": request, "notes": notes, "suggestion": None},
     )
 
 
@@ -65,4 +67,13 @@ def notes_delete(
     notes = list_notes(session)
     return templates.TemplateResponse(
         "partials/notes_list.html", {"request": request, "notes": notes}
+    )
+
+
+@app.post("/notes/assist", response_class=HTMLResponse)
+def notes_assist(request: Request, prompt: str = Form(...)) -> HTMLResponse:
+    suggestion = generate_note_suggestion(prompt)
+    return templates.TemplateResponse(
+        "partials/note_suggestion.html",
+        {"request": request, "suggestion": suggestion},
     )

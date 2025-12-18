@@ -11,6 +11,26 @@
   <button type="submit">追加</button>
 </form>
 
+<section style="margin:16px 0;">
+  <h2>AI アシスト</h2>
+  <form
+    hx-post="/notes/assist"
+    hx-target="#note-suggestion"
+    hx-swap="outerHTML"
+    style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;"
+  >
+    <input
+      name="prompt"
+      placeholder="メモのアイデアやテーマを入力..."
+      required
+      style="flex:1;min-width:220px;"
+    />
+    <button type="submit">AIに聞く</button>
+  </form>
+
+  {% include "partials/note_suggestion.html" %}
+</section>
+
 <div id="notes">
   {% include "partials/notes_list.html" %}
 </div>

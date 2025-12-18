@@ -3,3 +3,4 @@ uvicorn[standard]
 sqlmodel
 jinja2
 python-multipart
+openai>=1.0.0
