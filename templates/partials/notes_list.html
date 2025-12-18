@@ -1,0 +1,9 @@
+<div id="notes">
+  <ul>
+    {% for n in notes %}
+      {% include "partials/note_row.html" %}
+    {% else %}
+      <li>まだ何もないです</li>
+    {% endfor %}
+  </ul>
+</div>
